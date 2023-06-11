@@ -1,6 +1,6 @@
 from tkinter import *
 
-import messagebox
+from tkinter import messagebox
 
 class BankApp:
     def __init__(self, root):
@@ -24,7 +24,7 @@ class BankApp:
         self.current_rd.pack()
 
         # Balance
-        self.balance_lbl = Label(window, text="Balance: $500000")
+        self.balance_lbl = Label(window, text="Balance: $10000\nWithdrawal/deposite limit\n$5000")
         self.balance_lbl.pack()
 
         # withdraw button
@@ -39,8 +39,8 @@ class BankApp:
         self.amount_entry.pack()
 
         # balance withdrawal limit
-        self.balance_value = 500000.00
-        self.withdrawal_limit = 30000.00
+        self.balance_value = 10000.00
+        self.withdrawal_limit = 5000.00
     def update_buttons(self):
         account_type = self.account_type_var.get()
         if account_type == "Savings":
