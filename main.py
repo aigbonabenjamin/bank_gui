@@ -39,14 +39,14 @@ class BankApp:
         self.amount_entry.pack()
 
         # balance withdrawal limit
-        self.balance_lbl = 500000.00
+        self.balance_value = 500000.00
         self.withdrawal_limit = 30000.00
     def update_buttons(self):
         account_type = self.account_type_var.get()
         if account_type == "Savings":
             self.withdrawal_btn.config(state=NORMAL)
             self.deposit_btn.config(state=NORMAL)
-            self.withdrawal_limit = 30000.00
+            self.withdrawal_limit = 30000
         elif account_type == "current":
             self.withdrawal_btn.config(state=NORMAL)
             self.deposit_btn.config(state=NORMAL)
@@ -55,8 +55,8 @@ class BankApp:
 
     def withdrawal(self):
         amount = float(self.amount_entry.get())
-        if amount <= self.withdrawal_limit and amount <= self.balance_lbl:
-            self.balance_lbl -= amount
+        if amount <= self.withdrawal_limit and amount <= self.balance_value:
+            self.balance_value -= amount
             self.update_balance_label()
         elif amount > self.withdrawal_limit:
             messagebox.showerror("Error", "Withdrawal limit exceeded")
@@ -65,11 +65,11 @@ class BankApp:
 
     def deposit(self):
         amount = float(self.amount_entry.get())
-        self.balance_lbl += amount
+        self.balance_value += amount
         self.update_balance_label()
 
     def update_balance_label(self):
-        pass
+        self.balance_lbl.config(text="Balance: $" + str(self.balance_value))
 
 window = Tk()
 app = BankApp(window)
