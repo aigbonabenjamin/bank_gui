@@ -1,81 +1,78 @@
 from tkinter import *
-from tkinter import messagebox
+
+import messagebox
 
 class BankApp:
     def __init__(self, root):
-        self.root = root
-        self.root.title("Simple Bank App")
-        self.root.geometry("300x250")
+        self.window = window
+        self.window.title("Cool Cash")
+        self.window.geometry("300x266")
 
         # Account type selection
-        self.account_type_label = Label(root, text="Select Account Type:")
+        self.account_type_label = Label(window, text="select your account type")
         self.account_type_label.pack()
 
         self.account_type_var = StringVar()
         self.account_type_var.set("savings")
 
-        self.savings_radio = Radiobutton(root, text="Savings", variable=self.account_type_var, value="savings", command=self.open_transaction_window)
-        self.savings_radio.pack()
+        # savings button
+        self.savings_rd = Radiobutton(window, text="Savings", variable=self.account_type_var, value="savings", command=self.update_buttons)
+        self.savings_rd.pack()
 
-        self.current_radio = Radiobutton(root, text="Current", variable=self.account_type_var, value="current", command=self.open_transaction_window)
-        self.current_radio.pack()
+        # Current button
+        self.current_rd = Radiobutton(window, text="Current", variable=self.account_type_var, value="current", command=self.update_buttons)
+        self.current_rd.pack()
 
-        # Initialize balance and withdrawal limit
-        self.balance = 0.00
-        self.withdrawal_limit = 30000.00
+        # Balance
+        self.balance_lbl = Label(window, text="Balance: $500000")
+        self.balance_lbl.pack()
 
-    def open_transaction_window(self):
-        account_type = self.account_type_var.get()
-        if account_type == "savings":
-            self.withdrawal_limit = 30000.00
-        elif account_type == "current":
-            self.withdrawal_limit = float("inf")
-        self.root.withdraw()  # Hide the main window
-        transaction_window = Toplevel()  # Create a new window for transactions
-        transaction_window.title("Transactions")
-        transaction_window.geometry("300x200")
-
-        # Balance label
-        balance_label = Label(transaction_window, text=f"Balance: ${self.balance:.2f}")
-        balance_label.pack()
-
-        # Withdraw button
-        withdraw_button = Button(transaction_window, text="Withdraw", command=self.withdraw)
-        withdraw_button.pack()
+        # withdraw button
+        self.withdrawal_btn = Button(master=window, text="Withdrawal", command=self.withdrawal)
+        self.withdrawal_btn.pack()
 
         # Deposit button
-        deposit_button = Button(transaction_window, text="Deposit", command=self.deposit)
-        deposit_button.pack()
+        self.deposit_btn = Button(master=window, text="   Deposit   ", command=self.deposit)
+        self.deposit_btn.pack()
+        # Amount entry
+        self.amount_entry = Entry(window)
+        self.amount_entry.pack()
 
+        # balance withdrawal limit
+        self.balance_lbl = 500000.00
+        self.withdrawal_limit = 30000.00
+    def update_buttons(self):
+        account_type = self.account_type_var.get()
+        if account_type == "Savings":
+            self.withdrawal_btn.config(state=NORMAL)
+            self.deposit_btn.config(state=NORMAL)
+            self.withdrawal_limit = 30000.00
+        elif account_type == "current":
+            self.withdrawal_btn.config(state=NORMAL)
+            self.deposit_btn.config(state=NORMAL)
+            self.deposit_btn.config(state=NORMAL)
+            self.withdrawal_limit = float("int")
 
-        amount_entry = Entry(transaction_window)
-        amount_entry.pack()
-
-        def close_transaction_window():
-            transaction_window.destroy()  # Close the transaction window
-            self.root.deiconify()  # Show the main window again
-
-        # Close button
-        close_button = Button(transaction_window, text="Close", command=close_transaction_window)
-        close_button.pack()
-
-    def withdraw(self):
-        amount = float(amount_entry.get())
-        if amount <= self.withdrawal_limit and amount <= self.balance:
-            self.balance -= amount
-            balance_label.config(text=f"Balance: ${self.balance:.2f}")
+    def withdrawal(self):
+        amount = float(self.amount_entry.get())
+        if amount <= self.withdrawal_limit and amount <= self.balance_lbl:
+            self.balance_lbl -= amount
+            self.update_balance_label()
         elif amount > self.withdrawal_limit:
             messagebox.showerror("Error", "Withdrawal limit exceeded")
         else:
             messagebox.showerror("Error", "Insufficient funds")
 
     def deposit(self):
-        amount = amount_entry.get()
-        self.balance += amount
-        balance_label.config(text=f"Balance: ${self.balance:.2f}")
+        amount = float(self.amount_entry.get())
+        self.balance_lbl += amount
+        self.update_balance_label()
 
+    def update_balance_label(self):
+        pass
 
-# Create the main window
-root = Tk()
-app = BankApp(root)
-root.mainloop()
+window = Tk()
+app = BankApp(window)
+main_lbl = Label(master=window, text="welcome to Cool Cash")
+main_lbl.pack()
+window.mainloop()
