@@ -14,6 +14,7 @@ and below is the new, wonderful, slightly rushed but fully functional project
 <img width="296" alt="Screenshot 2023-06-12 at 00 13 09" src="https://github.com/DFori/cool_cash/assets/122609602/ef9c2748-c706-483d-aed9-9b680244e10e">
 
 by the code crusaiders
+
 Th3-pr3dit0r
 Anosike Ugochukwu
 Bhu/22/04/05/0115
@@ -24,7 +25,7 @@ Bhu/22/04/05/0049
 
 aigbonabenjamin
  Aigbona Benjamin
-Bhp/22/04/09/0014
+Bhu/22/04/09/0014
 
 rokarioss
 Iyelobu Oshomah Ajiri
